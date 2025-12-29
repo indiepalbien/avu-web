@@ -1,0 +1,112 @@
+
+Este proyecto contiene la applicación web de la Asociación Vegana del Uruguay (AVU).
+Esta applicación sirve, principalmente para manter un registro de los socios, y
+darle acceso a los beneficios que tiene la AVU.
+
+Hoy en día existe una página web hecha en WIX que queremos remplazar con una
+nueva implementación.
+
+
+== Funcionaliades ==
+
+==== Registro de socios ====
+
+Queremos que una persona se pueda registrar como socio en la AVU desde esta
+página web. Para registarse, un socio desde completar sus datos y ascociar
+un método de pago, con el que pagar su anualidad / subscripción
+
+Idealmente todos los socios pagán con tarjeta / usnado alguna intergración como 
+HANDY or mercado pago pero queremos permitir a algunos usuarios que pagen con 
+transferencia por fuera de la app. Para esos casos vamos a diseñar un metodo para
+"bypassear" el metodo de pago obligatorio (capaz que un cupon generado manualmente).
+
+===== Manajo de su subscripción =====
+
+Un socio deberá poder consultar su membesía, saber cuadno se vence, darse de baja,
+y actualizar sus datos personales
+
+==== Control de socios =====
+
+Los establecimentos asocioados a la AVU que ofrecen benefios necesitan 
+chequear que los socios están registrados y al día. Para esto, algunos usuarios
+tendrán un rol de "validar-beneficios" que les permita dado el identificador de un socio
+validar si está al día o no.
+
+==== Mostrar beneficios =====
+
+La applicación deberá poder listar los beneficos disponibles a los socios
+y mostrarlos en un mapa. También deberá permitir a los administradores
+actualizar la lista de beneficios.
+
+==== Visualización de Actas ==== 
+
+Al ser una ONG, la asociación utiliza actas de reuniones cuando se junta
+su directiva o los socios, estás deberán ser visibiles pero solo para los socios.
+
+==== Blog / Noticias =====
+
+La página deberá soportar un "blog" donde los administradores puedan subir 
+noticias relacionadas a la AVU (con soporte para fotos, etc). Idealmente
+la interfaz para subir una noticia es bastante user friendly.
+
+
+==== Comunicaciones a los socios ====
+
+Parte de la administración de la AVU consiste en enviar comunicados a los socios.
+En este sentido, deberá ser posible enviar mails desde la cuenta de la AVU
+a todos los socios o algunos de los socios de forma fácil. Idealmente soportando
+algun template como Hola %nombre%, tenés pendiente 1 pago de cuota, o "Hola %nombre",
+tu membería se termina el mes que viene, etc. 
+
+
+
+== Arquitectura ==
+
+Para implementar la aplicación vamos a usar DJANGO para el backend y para el 
+frontend vamos a usar HTMX.
+
+Queremos minimizar la cantidad de código asi que vamos a utilizar plugins de DJANGO
+siempre que sea posible y que reduzca la cantidad de trabajo que tenemos que hacer.
+
+
+
+== Deployment ==
+
+Vamos a deployear la aplicación en Railway, pero como manejamos el proyecto
+usando uv, vamos a necesiar un Dockerfile a medidia.
+
+
+== Modelos de Datos ==
+
+
+** Usuario **
+
+- nombre de usario
+- email
+- contraseña
+- dirección (autocompletar)
+
+** Socios ** (Usuarios)
+
+- primer nombre
+- segundo nombre
+- primer apellido
+- segundo apellido
+- fecha de nacimiento
+- cédula de identidad
+- "subscripción" -> referencia a 
+
+** Empresas ** (Usuarios)
+
+- nombre
+- rut
+- ** referencia a convenio **
+- logo
+
+** Convenios **
+
+- refernecia a empresa
+- descripción del convenio
+- status -> (valido, invalido)
+- fecha de inicio
+- fecha de fin (puede ser null)
