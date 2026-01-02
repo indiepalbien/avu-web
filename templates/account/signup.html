@@ -4,15 +4,13 @@
 {% block title %}{% trans "Sign Up" %} - AVU{% endblock %}
 
 {% block body %}
-{% include "main/includes/menu.html" %}
-
 <main class="mx-auto max-w-2xl px-6 py-12">
     <div class="space-y-8">
         <div class="space-y-2">
             <h1 class="text-3xl font-semibold text-ink">{% trans "Crear cuenta" %}</h1>
             <p class="text-ink/70">
                 {% trans "¿Ya tenés cuenta?" %}
-                <a href="{{ login_url }}" class="text-primary font-semibold hover:underline">{% trans "Iniciá sesión acá" %}</a>
+                <a href="{% url 'account_login' %}" class="text-primary font-semibold hover:underline">{% trans "Iniciá sesión acá" %}</a>
             </p>
         </div>
 

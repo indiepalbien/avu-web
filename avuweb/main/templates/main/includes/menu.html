@@ -23,7 +23,7 @@
                     </form>
                     {% else %}
                     <a href="{% url 'account_login' %}" class="btn btn-ghost px-3 py-1.5 rounded-lg text-sm font-semibold">Iniciar sesión</a>
-                    <a href="{% url 'account_signup' %}" class="btn btn-primary px-4 py-1.5 rounded-lg text-sm font-semibold">Registrarme</a>
+                    <a href="{% url 'main:signup' %}" class="btn btn-primary px-4 py-1.5 rounded-lg text-sm font-semibold">Registrarme</a>
                     {% endif %}
                 </div>
             </div>
@@ -50,7 +50,7 @@
                 </form>
                 {% else %}
                 <a href="{% url 'account_login' %}" class="block px-3 py-2 rounded-lg text-base font-semibold text-ink/80 hover:bg-primary/5 hover:text-primary transition-colors">Iniciar sesión</a>
-                <a href="{% url 'account_signup' %}" class="block px-3 py-2 rounded-lg text-base font-semibold text-white bg-primary hover:bg-primary/90 transition-colors">Registrarme</a>
+                <a href="{% url 'main:signup' %}" class="block px-3 py-2 rounded-lg text-base font-semibold text-white bg-primary hover:bg-primary/90 transition-colors">Registrarme</a>
                 {% endif %}
             </div>
         </div>

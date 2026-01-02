@@ -1,0 +1,26 @@
+{% extends "main/signup/base.html" %}
+
+{% block form_fields %}
+    <div class="space-y-2">
+        <label for="{{ form.address.id_for_label }}" class="block text-sm font-semibold text-ink">
+            Dirección
+        </label>
+        <textarea
+            name="address"
+            id="{{ form.address.id_for_label }}"
+            placeholder="Tu dirección completa"
+            class="w-full rounded-lg border border-ink/10 bg-white/80 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/40"
+            rows="4"
+            required
+        >{% if form.address.value %}{{ form.address.value }}{% endif %}</textarea>
+        {% if form.address.errors %}
+        <p class="text-sm text-red-600">{{ form.address.errors.0 }}</p>
+        {% endif %}
+    </div>
+
+    <div class="rounded-lg bg-primary/10 border border-primary/20 p-4">
+        <p class="text-sm text-ink">
+            <strong>¡Ya casi listo!</strong> Con la información que proporcionaste, completaremos tu registro.
+        </p>
+    </div>
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends "main/signup/base.html" %}
+
+{% block form_fields %}
+    <div class="space-y-6">
+        <div class="space-y-2">
+            <label for="{{ form.full_name.id_for_label }}" class="block text-sm font-semibold text-ink">
+                Nombre completo
+            </label>
+            <input
+                type="text"
+                name="full_name"
+                id="{{ form.full_name.id_for_label }}"
+                placeholder="Tu nombre completo"
+                class="w-full rounded-lg border border-ink/10 bg-white/80 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/40"
+                {% if form.full_name.value %}value="{{ form.full_name.value }}"{% endif %}
+                required
+            />
+            {% if form.full_name.errors %}
+            <p class="text-sm text-red-600">{{ form.full_name.errors.0 }}</p>
+            {% endif %}
+        </div>
+
+        <div class="space-y-2">
+            <label for="{{ form.email.id_for_label }}" class="block text-sm font-semibold text-ink">
+                Email
+            </label>
+            <input
+                type="email"
+                name="email"
+                id="{{ form.email.id_for_label }}"
+                placeholder="tu@email.com"
+                class="w-full rounded-lg border border-ink/10 bg-white/80 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/40"
+                {% if form.email.value %}value="{{ form.email.value }}"{% endif %}
+                required
+            />
+            {% if form.email.errors %}
+            <p class="text-sm text-red-600">{{ form.email.errors.0 }}</p>
+            {% endif %}
+        </div>
+
+        <div class="space-y-2">
+            <label for="{{ form.password.id_for_label }}" class="block text-sm font-semibold text-ink">
+                Contraseña
+            </label>
+            <input
+                type="password"
+                name="password"
+                id="{{ form.password.id_for_label }}"
+                placeholder="Tu contraseña"
+                class="w-full rounded-lg border border-ink/10 bg-white/80 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/40"
+                required
+            />
+            {% if form.password.errors %}
+            <p class="text-sm text-red-600">{{ form.password.errors.0 }}</p>
+            {% endif %}
+        </div>
+
+        <div class="space-y-2">
+            <label for="{{ form.password_confirm.id_for_label }}" class="block text-sm font-semibold text-ink">
+                Confirmar contraseña
+            </label>
+            <input
+                type="password"
+                name="password_confirm"
+                id="{{ form.password_confirm.id_for_label }}"
+                placeholder="Confirma tu contraseña"
+                class="w-full rounded-lg border border-ink/10 bg-white/80 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/40"
+                required
+            />
+            {% if form.password_confirm.errors %}
+            <p class="text-sm text-red-600">{{ form.password_confirm.errors.0 }}</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

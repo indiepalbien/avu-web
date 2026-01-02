@@ -1,0 +1,42 @@
+{% extends "main/signup/base.html" %}
+
+{% block form_fields %}
+    <div class="space-y-4">
+        <p class="text-ink/70">Selecciona el tipo de usuario que deseas crear:</p>
+        
+        {% if form.non_field_errors %}
+        <div class="rounded-lg border border-red-200 bg-red-50 p-4 text-red-700">
+            {% for error in form.non_field_errors %}
+                <p>{{ error }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <div class="space-y-3">
+            {% for value, label in form.user_type.field.choices %}
+            <label class="flex items-center p-4 rounded-lg border-2 border-ink/10 hover:border-primary/50 cursor-pointer transition">
+                <input
+                    type="radio"
+                    name="user_type"
+                    value="{{ value }}"
+                    class="radio radio-primary"
+                    {% if form.user_type.value == value %}checked{% endif %}
+                />
+                <span class="ml-4 font-semibold text-ink">
+                    {% if value == 'socio' %}
+                        Socio
+                        <p class="text-sm font-normal text-ink/70">Persona individual</p>
+                    {% else %}
+                        Empresa
+                        <p class="text-sm font-normal text-ink/70">Organización empresarial</p>
+                    {% endif %}
+                </span>
+            </label>
+            {% endfor %}
+        </div>
+
+        {% if form.user_type.errors %}
+        <p class="text-sm text-red-600">{{ form.user_type.errors.0 }}</p>
+        {% endif %}
+    </div>
+{% endblock %}

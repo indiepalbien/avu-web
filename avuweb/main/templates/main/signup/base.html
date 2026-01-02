@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Registro - AVU{% endblock %}
+
+{% block body %}
+<main class="mx-auto max-w-2xl px-6 py-12">
+    <div class="space-y-8">
+        <!-- Progress -->
+        <div class="space-y-3">
+            <div class="flex justify-between items-center">
+                <h1 class="text-3xl font-semibold text-ink">Crear Cuenta</h1>
+                <span class="text-sm font-medium text-ink/70">Paso {{ step }} de 4</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2">
+                <div class="bg-primary h-2 rounded-full transition-all" style="width: {% if step == '1' %}25%{% elif step == '2' %}50%{% elif step == '3' %}75%{% else %}100%{% endif %}"></div>
+            </div>
+        </div>
+
+        <!-- Form -->
+        <form method="post" class="space-y-6 glass-card rounded-2xl p-8" id="signup-form">
+            {% csrf_token %}
+            
+            {% if form.non_field_errors %}
+            <div class="rounded-lg border border-red-200 bg-red-50 p-4 text-red-700 space-y-2">
+                {% for error in form.non_field_errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            {% block form_fields %}{% endblock %}
+
+            <!-- Navigation -->
+            <div class="flex gap-4 pt-4">
+                {% if step != '1' %}
+                    <a href="{% url 'main:signup' %}?step={% if step == '2' %}1{% elif step == '3' %}2{% elif step == '4' %}3{% endif %}" class="flex-1 btn btn-outline rounded-lg border border-ink/10 px-4 py-3 font-semibold text-ink hover:bg-ink/5">
+                        ← Atrás
+                    </a>
+                {% endif %}
+                <button type="submit" class="flex-1 btn btn-primary rounded-lg bg-primary px-4 py-3 font-semibold text-white hover:bg-primary/90">
+                    {% if step == '4' %}Finalizar{% else %}Siguiente →{% endif %}
+                </button>
+            </div>
+        </form>
+    </div>
+</main>
+{% endblock %}

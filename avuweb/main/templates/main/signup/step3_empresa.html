@@ -1,0 +1,21 @@
+{% extends "main/signup/base.html" %}
+
+{% block form_fields %}
+    <div class="space-y-2">
+        <label for="{{ form.rut.id_for_label }}" class="block text-sm font-semibold text-ink">
+            RUT de la empresa
+        </label>
+        <input
+            type="text"
+            name="rut"
+            id="{{ form.rut.id_for_label }}"
+            placeholder="Ej: 12.345.678-9"
+            class="w-full rounded-lg border border-ink/10 bg-white/80 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/40"
+            {% if form.rut.value %}value="{{ form.rut.value }}"{% endif %}
+            required
+        />
+        {% if form.rut.errors %}
+        <p class="text-sm text-red-600">{{ form.rut.errors.0 }}</p>
+        {% endif %}
+    </div>
+{% endblock %}

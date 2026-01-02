@@ -1,0 +1,41 @@
+{% extends "main/signup/base.html" %}
+
+{% block form_fields %}
+    <div class="space-y-6">
+        <div class="space-y-2">
+            <label for="{{ form.identity_number.id_for_label }}" class="block text-sm font-semibold text-ink">
+                Cédula de identidad
+            </label>
+            <input
+                type="text"
+                name="identity_number"
+                id="{{ form.identity_number.id_for_label }}"
+                placeholder="Ej: 12.345.678-9"
+                class="w-full rounded-lg border border-ink/10 bg-white/80 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/40"
+                {% if form.identity_number.value %}value="{{ form.identity_number.value }}"{% endif %}
+                required
+            />
+            {% if form.identity_number.errors %}
+            <p class="text-sm text-red-600">{{ form.identity_number.errors.0 }}</p>
+            {% endif %}
+        </div>
+
+        <div class="space-y-2">
+            <label for="{{ form.phone_number.id_for_label }}" class="block text-sm font-semibold text-ink">
+                Número de teléfono
+            </label>
+            <input
+                type="tel"
+                name="phone_number"
+                id="{{ form.phone_number.id_for_label }}"
+                placeholder="+598 9 XXXX XXXX"
+                class="w-full rounded-lg border border-ink/10 bg-white/80 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/40"
+                {% if form.phone_number.value %}value="{{ form.phone_number.value }}"{% endif %}
+                required
+            />
+            {% if form.phone_number.errors %}
+            <p class="text-sm text-red-600">{{ form.phone_number.errors.0 }}</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
