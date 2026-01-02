@@ -30,3 +30,15 @@ This project is built with DJANGO, and relies heavily on django tempaltes + HTMX
 - The main database is Postgres.
 - Celery is used for background jobs and scheduled tasks.
 - Redis is used as the default cache, and the message broker for Celery.
+- We follow this to handle CSRF tokens: https://django-htmx.readthedocs.io/en/latest/tips.html
+
+
+## Application
+
+- All the django code is in `avuweb`
+
+## How to work
+
+- Before coding confirm that you have understood the task
+- Ask the user clarifying questions in chunks of ~300 characters
+- When given the task on a file, write the action plan at the end of that file, but don't erase the original instruction.

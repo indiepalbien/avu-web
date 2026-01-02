@@ -1,0 +1,75 @@
+:root {
+    --color-primary-hex: #116dff;
+    --color-primary: 17 109 255;
+    --color-accent-hex: #e84a43;
+    --color-accent: 232 74 67;
+    --color-ink: 8 8 8;
+    --color-muted: 93 93 97;
+    --color-sand-hex: #fef6ed;
+    --color-sand: 254 246 237;
+}
+
+body {
+    font-family: "Inter", system-ui, -apple-system, sans-serif;
+    background-color: rgb(var(--color-sand));
+    color: rgb(var(--color-ink));
+}
+
+.glass-card {
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.06);
+    backdrop-filter: blur(10px);
+}
+
+.hero-gradient {
+    background: radial-gradient(circle at 20% 20%, rgba(17, 109, 255, 0.08), transparent 45%),
+        radial-gradient(circle at 80% 10%, rgba(232, 74, 67, 0.08), transparent 40%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(254, 246, 237, 0.95));
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--color-primary-hex), #3a8dff);
+    color: white;
+    border: none;
+    box-shadow: 0 12px 30px rgba(17, 109, 255, 0.35);
+}
+
+.btn-primary:hover {
+    filter: brightness(1.05);
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    font-weight: 600;
+    transition: transform 120ms ease, box-shadow 120ms ease, filter 120ms ease;
+}
+
+.btn:focus-visible {
+    outline: 2px solid var(--color-primary-hex);
+    outline-offset: 2px;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+.btn-ghost {
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    color: rgb(var(--color-ink));
+    background: rgba(255, 255, 255, 0.85);
+}
+
+.pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.9rem;
+    border-radius: 999px;
+    background: rgba(17, 109, 255, 0.08);
+    color: rgb(var(--color-primary));
+    font-weight: 600;
+}

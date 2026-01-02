@@ -1,0 +1,58 @@
+<nav class="sticky top-0 z-50 bg-white/80 shadow-sm ring-1 ring-ink/5 backdrop-blur-sm" x-data="{ open: false }">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <div class="flex items-center justify-between h-16">
+            <!-- Logo -->
+            <div class="flex-shrink-0">
+                <a href="/" class="flex items-center gap-2 text-lg font-semibold text-ink">
+                    <span class="h-9 w-9 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-sm">AVU</span>
+                    <span class="hidden sm:inline text-base">AVU</span>
+                </a>
+            </div>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center gap-8">
+                <div class="flex items-center gap-6 text-sm font-semibold text-ink/80">
+                    <a class="hover:text-primary transition-colors" href="/#">Inicio</a>
+                    <a class="hover:text-primary transition-colors" href="/#beneficios">Beneficios</a>
+                    <a class="hover:text-primary transition-colors" href="/#contacto">Contacto</a>
+                </div>
+                <div class="flex items-center gap-2 pl-6 border-l border-ink/10">
+                    {% if user.is_authenticated %}
+                    <form action="{% url 'account_logout' %}" method="post" class="flex items-center">{% csrf_token %}
+                        <button type="submit" class="btn btn-ghost px-3 py-1.5 rounded-lg text-sm font-semibold">Cerrar sesión</button>
+                    </form>
+                    {% else %}
+                    <a href="{% url 'account_login' %}" class="btn btn-ghost px-3 py-1.5 rounded-lg text-sm font-semibold">Iniciar sesión</a>
+                    <a href="{% url 'account_signup' %}" class="btn btn-primary px-4 py-1.5 rounded-lg text-sm font-semibold">Registrarme</a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden rounded-lg border border-ink/10 p-2 text-ink hover:bg-ink/5 transition-colors" @click="open = !open" aria-label="Abrir menú">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="md:hidden" x-show="open" x-transition class="border-t border-ink/10">
+            <div class="px-2 py-3 space-y-2">
+                <a href="/#" class="block px-3 py-2 rounded-lg text-base font-semibold text-ink/80 hover:bg-primary/5 hover:text-primary transition-colors">Inicio</a>
+                <a href="/#beneficios" class="block px-3 py-2 rounded-lg text-base font-semibold text-ink/80 hover:bg-primary/5 hover:text-primary transition-colors">Beneficios</a>
+                <a href="/#contacto" class="block px-3 py-2 rounded-lg text-base font-semibold text-ink/80 hover:bg-primary/5 hover:text-primary transition-colors">Contacto</a>
+            </div>
+            <div class="border-t border-ink/10 px-2 py-3 space-y-2">
+                {% if user.is_authenticated %}
+                <form action="{% url 'account_logout' %}" method="post" class="block">{% csrf_token %}
+                    <button type="submit" class="w-full text-left px-3 py-2 rounded-lg text-base font-semibold text-ink/80 hover:bg-primary/5 hover:text-primary transition-colors">Cerrar sesión</button>
+                </form>
+                {% else %}
+                <a href="{% url 'account_login' %}" class="block px-3 py-2 rounded-lg text-base font-semibold text-ink/80 hover:bg-primary/5 hover:text-primary transition-colors">Iniciar sesión</a>
+                <a href="{% url 'account_signup' %}" class="block px-3 py-2 rounded-lg text-base font-semibold text-white bg-primary hover:bg-primary/90 transition-colors">Registrarme</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</nav>

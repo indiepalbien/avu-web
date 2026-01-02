@@ -1,0 +1,10 @@
+[project]
+name = "avu-web"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "django>=4.2.27",
+    "django-allauth>=65.13.1",
+]

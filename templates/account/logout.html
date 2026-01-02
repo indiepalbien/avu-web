@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Confirmar cierre de sesión" %} - AVU{% endblock %}
+
+{% block body %}
+{% include "main/includes/menu.html" %}
+
+<main class="mx-auto max-w-2xl px-6 py-12">
+    <div class="space-y-8">
+        <div class="space-y-2">
+            <h1 class="text-3xl font-semibold text-ink">{% trans "Cerrar sesión" %}</h1>
+            <p class="text-ink/70">{% trans "¿Estás seguro que querés cerrar sesión?" %}</p>
+        </div>
+
+        <form method="post" action="{% url 'account_logout' %}" class="space-y-6 glass-card rounded-2xl p-8">
+            {% csrf_token %}
+            
+            <div class="flex gap-4">
+                <button type="submit" class="btn btn-primary px-6 py-3 rounded-lg font-semibold">
+                    {% trans "Sí, cerrar sesión" %}
+                </button>
+                <a href="/" class="btn btn-ghost px-6 py-3 rounded-lg font-semibold">
+                    {% trans "Cancelar" %}
+                </a>
+            </div>
+        </form>
+    </div>
+</main>
+{% endblock %}

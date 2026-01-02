@@ -1,0 +1,9 @@
+{% for benefit in benefits %}
+<div class="glass-card rounded-xl p-5 flex flex-col gap-3">
+    <div class="h-10 w-10 rounded-full bg-primary/10 text-primary flex items-center justify-center font-semibold">{{ forloop.counter }}</div>
+    <h3 class="text-lg font-semibold text-ink">{{ benefit.title }}</h3>
+    <p class="text-ink/70 text-sm leading-relaxed">{{ benefit.description }}</p>
+</div>
+{% empty %}
+<div class="rounded-xl border border-dashed border-ink/20 p-4 text-ink/60">No hay beneficios disponibles por el momento.</div>
+{% endfor %}

@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+{% block title %}AVU · Asociación Vegana del Uruguay{% endblock %}
+
+{% block body %}
+<header class="hero-gradient border-b border-ink/10">
+    <div class="mx-auto max-w-6xl px-6 pb-16 pt-6">
+        {% include "main/includes/menu.html" %}
+        <div class="grid gap-12 md:grid-cols-2 md:items-center mt-10">
+            <div class="space-y-6">
+                <span class="pill">AVU</span>
+                <h1 class="font-display text-4xl md:text-5xl font-semibold leading-tight text-ink">
+                    AVU · Asociación Vegana del Uruguay
+                </h1>
+                <p class="text-lg text-ink/80 max-w-xl">
+                    Una comunidad que impulsa el veganismo en Uruguay con acción, formación y apoyo mutuo.
+                    Descubrí cómo participar y sumarte hoy mismo.
+                </p>
+                <div class="flex flex-wrap gap-3">
+                    <a href="#contacto" class="btn btn-primary px-5 py-3 rounded-lg text-base font-semibold shadow-lg hover:shadow-xl transition duration-150">Asociate ahora</a>
+                    <button
+                        class="btn btn-ghost px-5 py-3 rounded-lg text-base font-semibold"
+                        hx-get="{% url 'main:benefits' %}"
+                        hx-target="#benefits-panel"
+                        hx-swap="innerHTML"
+                    >
+                        Ver beneficios
+                    </button>
+                </div>
+                <div class="flex flex-wrap gap-4 text-sm text-ink/70">
+                    <div class="flex items-center gap-2">
+                        <span class="h-2 w-2 rounded-full bg-primary"></span>
+                        Acción colectiva
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="h-2 w-2 rounded-full bg-accent"></span>
+                        Formación continua
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="h-2 w-2 rounded-full bg-primary/70"></span>
+                        Comunidad segura
+                    </div>
+                </div>
+            </div>
+            <div class="glass-card rounded-2xl p-8 shadow-xl">
+                <div class="flex flex-col gap-4">
+                    <div class="flex items-center gap-3">
+                        <div class="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center text-primary font-semibold">AVU</div>
+                        <div>
+                            <p class="text-sm uppercase tracking-[0.2em] text-ink/60">Somos AVU</p>
+                            <p class="text-lg font-semibold text-ink">Veganismo en acción</p>
+                        </div>
+                    </div>
+                    <p class="text-ink/80 leading-relaxed">
+                        Acompañamos a personas y organizaciones a adoptar prácticas libres de explotación animal, con impacto real en Uruguay.
+                    </p>
+                    <div class="grid grid-cols-2 gap-3 text-sm">
+                        <div class="rounded-xl border border-ink/10 bg-white/70 p-3">
+                            <p class="text-2xl font-semibold text-primary">15+</p>
+                            <p class="text-ink/70">Comisiones activas</p>
+                        </div>
+                        <div class="rounded-xl border border-ink/10 bg-white/70 p-3">
+                            <p class="text-2xl font-semibold text-primary">1000+</p>
+                            <p class="text-ink/70">Personas asociadas</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 text-sm text-ink/70">
+                        <span class="h-2 w-2 rounded-full bg-primary"></span>
+                        Manejo seguro de tokens CSRF para interacciones con HTMX.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main class="mx-auto max-w-6xl px-6 py-12 space-y-12">
+    <section class="space-y-6" id="beneficios">
+        <div class="flex items-center justify-between gap-4 flex-wrap">
+            <div>
+                <p class="text-sm font-semibold text-primary">Beneficios AVU</p>
+                <h2 class="text-3xl font-semibold text-ink">Sumate y hacé la diferencia</h2>
+                <p class="text-ink/70 max-w-2xl">Conocé cómo podés aportar y qué obtenés al integrarte a la comunidad.</p>
+            </div>
+            <button
+                class="btn btn-primary px-4 py-2 rounded-lg text-sm font-semibold"
+                hx-get="{% url 'main:benefits' %}"
+                hx-target="#benefits-panel"
+                hx-swap="innerHTML"
+            >
+                Actualizar lista
+            </button>
+        </div>
+        <div id="benefits-panel" class="grid gap-4 md:grid-cols-3" hx-target="this" hx-swap="innerHTML">
+            {% include "main/includes/benefits.html" %}
+        </div>
+    </section>
+
+    <section class="grid gap-8 md:grid-cols-2" id="contacto">
+        <div class="space-y-4">
+            <p class="text-sm font-semibold text-primary">Contacto</p>
+            <h3 class="text-2xl font-semibold text-ink">Empecemos la conversación</h3>
+            <p class="text-ink/70">Escribinos para asociarte, ofrecer voluntariado o proponer una iniciativa.</p>
+            <div class="space-y-2 text-ink/80">
+                <p><span class="font-semibold">Email:</span> contacto@avu.org.uy</p>
+                <p><span class="font-semibold">WhatsApp:</span> 098 951 519</p>
+            </div>
+        </div>
+        <div class="glass-card rounded-2xl p-6">
+            <form class="space-y-4" hx-post="." hx-target="#contact-response" hx-swap="innerHTML" hx-disabled-elt="button">
+                {% csrf_token %}
+                <div class="grid gap-4 md:grid-cols-2">
+                    <label class="block text-sm text-ink/70">
+                        Nombre
+                        <input type="text" name="nombre" class="mt-1 w-full rounded-lg border border-ink/10 bg-white/80 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary/40" placeholder="Tu nombre" />
+                    </label>
+                    <label class="block text-sm text-ink/70">
+                        Email
+                        <input type="email" name="email" class="mt-1 w-full rounded-lg border border-ink/10 bg-white/80 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary/40" placeholder="tu@email.com" />
+                    </label>
+                </div>
+                <label class="block text-sm text-ink/70">
+                    Mensaje
+                    <textarea name="mensaje" rows="3" class="mt-1 w-full rounded-lg border border-ink/10 bg-white/80 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary/40" placeholder="Contanos cómo querés sumarte"></textarea>
+                </label>
+                <div class="flex items-center justify-between gap-4 flex-wrap">
+                    <p class="text-xs text-ink/60">Tus datos se protegen y solo se usan para responderte.</p>
+                    <button type="submit" class="btn btn-primary px-4 py-2 rounded-lg text-sm font-semibold">Enviar</button>
+                </div>
+                <div id="contact-response" class="text-sm font-semibold text-primary">
+                    {% if message %}
+                    <div class="rounded-lg border border-primary/20 bg-primary/5 p-3">{{ message }}</div>
+                    {% endif %}
+                </div>
+            </form>
+        </div>
+    </section>
+</main>
+{% endblock %}

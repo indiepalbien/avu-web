@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es" hx-boost="true">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}AVU{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/theme.css' %}">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: 'rgb(var(--color-primary) / <alpha-value>)',
+                        accent: 'rgb(var(--color-accent) / <alpha-value>)',
+                        ink: 'rgb(var(--color-ink) / <alpha-value>)',
+                        sand: 'rgb(var(--color-sand) / <alpha-value>)',
+                    },
+                    fontFamily: {
+                        display: ['"Work Sans"', 'Inter', 'system-ui', 'sans-serif'],
+                        body: ['"Inter"', 'system-ui', 'sans-serif'],
+                    },
+                },
+            },
+        };
+    </script>
+    <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script>
+        (function () {
+            function getCookie(name) {
+                const value = `; ${document.cookie}`;
+                const parts = value.split(`; ${name}=`);
+                if (parts.length === 2) return parts.pop().split(';').shift();
+                return null;
+            }
+
+            document.addEventListener('htmx:configRequest', (event) => {
+                const csrfToken = getCookie('csrftoken');
+                if (csrfToken) {
+                    event.detail.headers['X-CSRFToken'] = csrfToken;
+                }
+            });
+        })();
+    </script>
+</head>
+<body class="bg-sand text-ink antialiased">
+    <div class="min-h-screen flex flex-col" x-data>
+        {% block body %}{% endblock %}
+        <footer class="mt-auto border-t border-ink/10 bg-white/70 backdrop-blur">
+            <div class="mx-auto max-w-6xl px-6 py-6 text-sm flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+                <p class="text-ink/70">© {% now "Y" %} AVU · Asociación Vegana del Uruguay</p>
+                <div class="flex gap-4 text-ink/70">
+                    <a class="hover:text-primary" href="#">Política de privacidad</a>
+                    <a class="hover:text-primary" href="#">Contacto</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

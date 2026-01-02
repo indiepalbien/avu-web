@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% load i18n allauth account %}
+
+{% block title %}{% trans "Sign Up" %} - AVU{% endblock %}
+
+{% block body %}
+{% include "main/includes/menu.html" %}
+
+<main class="mx-auto max-w-2xl px-6 py-12">
+    <div class="space-y-8">
+        <div class="space-y-2">
+            <h1 class="text-3xl font-semibold text-ink">{% trans "Crear cuenta" %}</h1>
+            <p class="text-ink/70">
+                {% trans "¿Ya tenés cuenta?" %}
+                <a href="{{ login_url }}" class="text-primary font-semibold hover:underline">{% trans "Iniciá sesión acá" %}</a>
+            </p>
+        </div>
+
+        <form method="post" action="{% url 'account_signup' %}" class="space-y-6 glass-card rounded-2xl p-8">
+            {% csrf_token %}
+            
+            {% if form.non_field_errors %}
+            <div class="rounded-lg border border-red-200 bg-red-50 p-4 text-red-700">
+                {% for error in form.non_field_errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <div class="space-y-2">
+                <label for="{{ form.username.id_for_label }}" class="block text-sm font-semibold text-ink">
+                    {% trans "Usuario" %}
+                </label>
+                <input
+                    type="text"
+                    name="username"
+                    id="{{ form.username.id_for_label }}"
+                    placeholder="tu_usuario"
+                    class="w-full rounded-lg border border-ink/10 bg-white/80 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/40"
+                    required
+                    value="{{ form.username.value|default:'' }}"
+                />
+                {% if form.username.errors %}
+                <p class="text-sm text-red-600">{{ form.username.errors.0 }}</p>
+                {% endif %}
+            </div>
+
+            <div class="space-y-2">
+                <label for="{{ form.email.id_for_label }}" class="block text-sm font-semibold text-ink">
+                    {% trans "Email" %}
+                </label>
+                <input
+                    type="email"
+                    name="email"
+                    id="{{ form.email.id_for_label }}"
+                    placeholder="tu@email.com"
+                    class="w-full rounded-lg border border-ink/10 bg-white/80 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/40"
+                    required
+                    value="{{ form.email.value|default:'' }}"
+                />
+                {% if form.email.errors %}
+                <p class="text-sm text-red-600">{{ form.email.errors.0 }}</p>
+                {% endif %}
+            </div>
+
+            <div class="space-y-2">
+                <label for="{{ form.password1.id_for_label }}" class="block text-sm font-semibold text-ink">
+                    {% trans "Contraseña" %}
+                </label>
+                <input
+                    type="password"
+                    name="password1"
+                    id="{{ form.password1.id_for_label }}"
+                    placeholder="••••••••"
+                    class="w-full rounded-lg border border-ink/10 bg-white/80 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/40"
+                    required
+                />
+                {% if form.password1.errors %}
+                <p class="text-sm text-red-600">{{ form.password1.errors.0 }}</p>
+                {% endif %}
+            </div>
+
+            <div class="space-y-2">
+                <label for="{{ form.password2.id_for_label }}" class="block text-sm font-semibold text-ink">
+                    {% trans "Confirmar contraseña" %}
+                </label>
+                <input
+                    type="password"
+                    name="password2"
+                    id="{{ form.password2.id_for_label }}"
+                    placeholder="••••••••"
+                    class="w-full rounded-lg border border-ink/10 bg-white/80 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/40"
+                    required
+                />
+                {% if form.password2.errors %}
+                <p class="text-sm text-red-600">{{ form.password2.errors.0 }}</p>
+                {% endif %}
+            </div>
+
+            {{ redirect_field }}
+
+            <button type="submit" class="btn btn-primary w-full px-4 py-3 rounded-lg text-base font-semibold">
+                {% trans "Crear cuenta" %}
+            </button>
+        </form>
+
+        <div class="text-center text-sm text-ink/70">
+            <p>
+                {% trans "Al crear una cuenta aceptás nuestros" %}
+                <a href="#" class="text-primary hover:underline">{% trans "términos de servicio" %}</a>
+            </p>
+        </div>
+    </div>
+</main>
+{% endblock %}
