@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-m2wxn88(drp)&@z32bpp(zy!60eh6x=pwchzji@u!*3)i#ygzm
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*', 'testserver']
 
 
 # Application definition
@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'ckeditor',
     'avuweb.main',
 ]
 
@@ -68,6 +69,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'avuweb.main.context_processors.static_pages',
             ],
         },
     },
@@ -136,6 +138,19 @@ LOGOUT_REDIRECT_URL = '/'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_LOGIN_METHODS = {'username', 'email'}
 ACCOUNT_SIGNUP_FIELDS = ['username*', 'email*', 'password1*', 'password2*']
+
+# CKEditor Configuration
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': [
+            ['Format', 'Bold', 'Italic', 'Underline', '-', 'Link', 'Unlink'],
+            ['NumberedList', 'BulletedList', '-', 'Indent', 'Outdent'],
+            ['RemoveFormat'],
+        ],
+        'height': 400,
+        'width': '100%',
+    },
+}
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

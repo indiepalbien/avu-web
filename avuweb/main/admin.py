@@ -1,5 +1,5 @@
 from django.contrib import admin
-from avuweb.main.models import UserProfile
+from avuweb.main.models import UserProfile, StaticPage
 
 
 @admin.register(UserProfile)
@@ -32,3 +32,26 @@ class UserProfileAdmin(admin.ModelAdmin):
             'classes': ('collapse',)
         }),
     )
+
+
+@admin.register(StaticPage)
+class StaticPageAdmin(admin.ModelAdmin):
+    list_display = ('title', 'category', 'slug', 'updated_at')
+    list_filter = ('category', 'updated_at', 'created_at')
+    search_fields = ('title', 'slug', 'content')
+    prepopulated_fields = {'slug': ('title',)}
+    readonly_fields = ('created_at', 'updated_at')
+
+    fieldsets = (
+        ('Información', {
+            'fields': ('title', 'slug', 'category')
+        }),
+        ('Contenido', {
+            'fields': ('content',)
+        }),
+        ('Timestamps', {
+            'fields': ('created_at', 'updated_at'),
+            'classes': ('collapse',)
+        }),
+    )
+
