@@ -18,6 +18,7 @@
                 </div>
                 <div class="flex items-center gap-2 pl-6 border-l border-ink/10">
                     {% if user.is_authenticated %}
+                    <a href="{% url 'main:profile' %}" class="btn btn-ghost px-3 py-1.5 rounded-lg text-sm font-semibold">Perfil</a>
                     <form action="{% url 'account_logout' %}" method="post" class="flex items-center">{% csrf_token %}
                         <button type="submit" class="btn btn-ghost px-3 py-1.5 rounded-lg text-sm font-semibold">Cerrar sesión</button>
                     </form>
@@ -45,6 +46,7 @@
             </div>
             <div class="border-t border-ink/10 px-2 py-3 space-y-2">
                 {% if user.is_authenticated %}
+                <a href="{% url 'main:profile' %}" class="block px-3 py-2 rounded-lg text-base font-semibold text-ink/80 hover:bg-primary/5 hover:text-primary transition-colors">Perfil</a>
                 <form action="{% url 'account_logout' %}" method="post" class="block">{% csrf_token %}
                     <button type="submit" class="w-full text-left px-3 py-2 rounded-lg text-base font-semibold text-ink/80 hover:bg-primary/5 hover:text-primary transition-colors">Cerrar sesión</button>
                 </form>

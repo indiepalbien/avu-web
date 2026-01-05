@@ -3,104 +3,92 @@
 {% block title %}Perfil{% endblock %}
 
 {% block body %}
-<div class="mx-auto max-w-6xl px-6 py-8">
-    <div class="flex items-center justify-between mb-8 flex-wrap gap-4">
-        <div>
-            <h1 class="text-4xl font-bold">Hola, {{ user.first_name }}</h1>
-            <p class="text-ink/70 mt-2">{{ user.email }}</p>
-        </div>
-        {% if user.profile %}
-            <div class="flex flex-col items-end gap-2">
-                <span class="badge badge-lg {% if user.profile.is_socio %}badge-primary{% else %}badge-secondary{% endif %}">
-                    {{ user.profile.get_user_type_display }}
-                </span>
-                {% if user.profile.is_socio %}
-                    <p class="text-sm text-ink/70">Persona individual</p>
-                {% else %}
-                    <p class="text-sm text-ink/70">Organización empresarial</p>
-                {% endif %}
+<header class="hero-gradient border-b border-ink/10">
+    <div class="mx-auto max-w-6xl px-6 py-12">
+        <div class="flex items-center justify-between gap-8 flex-wrap">
+            <div>
+                <h1 class="font-display text-4xl md:text-5xl font-semibold text-ink">Hola, {{ user.first_name }}</h1>
+                <p class="text-ink/70 mt-3">{{ user.email }}</p>
             </div>
-        {% endif %}
+            {% if user.profile %}
+                <div class="flex flex-col items-end gap-3">
+                    <span class="pill {% if user.profile.is_socio %}bg-primary/10 text-primary{% else %}bg-secondary/10 text-secondary{% endif %}">
+                        {{ user.profile.get_user_type_display }}
+                    </span>
+                    {% if user.profile.is_socio %}
+                        <p class="text-sm text-ink/70">Persona individual</p>
+                    {% else %}
+                        <p class="text-sm text-ink/70">Organización empresarial</p>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
     </div>
-    
+</header>
+
+<div class="mx-auto max-w-6xl px-6 py-12">
     {% if user.profile %}
-    <div class="grid md:grid-cols-2 gap-6">
-        <!-- Card Información Personal -->
-        <div class="card bg-base-100 shadow-lg">
-            <div class="card-body">
-                <h2 class="card-title text-lg">Información Personal</h2>
-                <div class="divider my-0"></div>
-                <div class="space-y-4">
+    <div class="space-y-6">
+        <!-- Grid de Información Personal y Dirección -->
+        <div class="grid md:grid-cols-2 gap-6">
+            <!-- Card Información Personal -->
+            <div class="glass-card rounded-2xl p-6">
+                <div class="space-y-6">
                     <div>
-                        <p class="text-sm font-semibold text-primary">Nombre</p>
-                        <p class="text-ink font-semibold">{{ user.profile.full_name }}</p>
+                        <p class="text-sm font-semibold text-primary uppercase tracking-[0.1em]">Información Personal</p>
+                        <h2 class="text-2xl font-semibold text-ink mt-2">{{ user.profile.full_name }}</h2>
                     </div>
+                    <div class="divider my-0"></div>
                     
                     {% if user.profile.is_socio %}
                         <!-- Información específica de Socio -->
-                        <div>
-                            <p class="text-sm font-semibold text-primary">Cédula de Identidad</p>
-                            <p class="text-ink font-semibold">{{ user.profile.identity_number }}</p>
-                        </div>
-                        <div>
-                            <p class="text-sm font-semibold text-primary">Teléfono</p>
-                            <p class="text-ink font-semibold">{{ user.profile.phone_number }}</p>
+                        <div class="space-y-4">
+                            {% include "main/includes/data_field.html" label="Cédula de Identidad" value=user.profile.identity_number %}
+                            {% include "main/includes/data_field.html" label="Teléfono" value=user.profile.phone_number %}
                         </div>
                     {% else %}
                         <!-- Información específica de Empresa -->
-                        <div>
-                            <p class="text-sm font-semibold text-primary">RUT</p>
-                            <p class="text-ink font-semibold">{{ user.profile.rut }}</p>
-                        </div>
+                        {% include "main/includes/data_field.html" label="RUT" value=user.profile.rut %}
                     {% endif %}
                 </div>
-                <div class="card-actions mt-4">
-                    <button class="btn btn-sm btn-outline">Editar Información</button>
+            </div>
+
+            <!-- Card Dirección -->
+            <div class="glass-card rounded-2xl p-6">
+                <div class="space-y-4">
+                    <div>
+                        <p class="text-sm font-semibold text-primary uppercase tracking-[0.1em]">Dirección</p>
+                    </div>
+                    <div class="divider my-0"></div>
+                    <div class="rounded-xl border border-ink/10 bg-white/30 p-4">
+                        <p class="text-ink leading-relaxed whitespace-pre-wrap">{{ user.profile.address }}</p>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Card Dirección -->
-        <div class="card bg-base-100 shadow-lg">
-            <div class="card-body">
-                <h2 class="card-title text-lg">Dirección</h2>
+        <!-- Card de Membresía -->
+        <div class="glass-card rounded-2xl p-6">
+            <div class="space-y-6">
+                <div>
+                    <p class="text-sm font-semibold text-primary uppercase tracking-[0.1em]">Estado de Membresía</p>
+                </div>
                 <div class="divider my-0"></div>
-                <p class="text-ink whitespace-pre-wrap leading-relaxed">{{ user.profile.address }}</p>
-                <div class="card-actions mt-4">
-                    <button class="btn btn-sm btn-outline">Editar Dirección</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Card de Membresía -->
-    <div class="card bg-base-100 shadow-lg mt-6">
-        <div class="card-body">
-            <h2 class="card-title text-lg">Estado de Membresía</h2>
-            <div class="divider my-0"></div>
-            <div class="grid md:grid-cols-3 gap-4">
-                <div class="bg-primary/10 rounded-lg p-4">
-                    <p class="text-sm text-ink/70">Estado</p>
-                    <p class="text-lg font-semibold text-primary">Activo</p>
-                </div>
-                <div class="bg-primary/10 rounded-lg p-4">
-                    <p class="text-sm text-ink/70">Vencimiento</p>
-                    <p class="text-lg font-semibold text-primary">--</p>
-                </div>
-                <div class="bg-primary/10 rounded-lg p-4">
-                    <p class="text-sm text-ink/70">Beneficios</p>
-                    <p class="text-lg font-semibold text-primary">Disponibles</p>
+                <div class="grid md:grid-cols-3 gap-4">
+                    {% include "main/includes/stat_box.html" label="Estado" value="Activo" %}
+                    {% include "main/includes/stat_box.html" label="Vencimiento" value="--" %}
+                    {% include "main/includes/stat_box.html" label="Beneficios" value="Disponibles" %}
                 </div>
             </div>
         </div>
     </div>
     {% else %}
-        <div class="card bg-base-100 shadow-lg border-l-4 border-primary">
-            <div class="card-body">
-                <h2 class="card-title">⚠️ Perfil Incompleto</h2>
-                <p class="text-ink/80">Estás logeado pero tu perfil no está completado.</p>
-                <div class="card-actions mt-4">
-                    <a href="{% url 'main:signup' %}" class="btn btn-primary">Completar Perfil</a>
+        <div class="glass-card rounded-2xl p-8 border-l-4 border-accent">
+            <div class="space-y-4">
+                <h2 class="text-2xl font-semibold text-ink">⚠️ Perfil Incompleto</h2>
+                <p class="text-ink/80">Estás logeado pero tu perfil no está completado. Completalo ahora para acceder a todos los beneficios de AVU.</p>
+                <div class="pt-2">
+                    <a href="{% url 'main:signup' %}" class="btn btn-primary px-4 py-2 rounded-lg font-semibold">Completar Perfil</a>
                 </div>
             </div>
         </div>
