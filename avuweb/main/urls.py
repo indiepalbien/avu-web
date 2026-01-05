@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import benefits_partial, landing, profile, signup
+from .views import benefits_partial, landing, profile, signup, static_page
 
 app_name = "main"
 
@@ -9,4 +9,5 @@ urlpatterns = [
     path("signup/", signup, name="signup"),
     path("profile/", profile, name="profile"),
     path("fragments/benefits/", benefits_partial, name="benefits"),
+    path("pages/<slug:slug>/", static_page, name="static_page"),
 ]
