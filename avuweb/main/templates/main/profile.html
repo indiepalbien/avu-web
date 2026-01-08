@@ -43,12 +43,12 @@
                     {% if user.profile.is_socio %}
                         <!-- Información específica de Socio -->
                         <div class="space-y-4">
-                            {% include "main/includes/data_field.html" label="Cédula de Identidad" value=user.profile.identity_number %}
-                            {% include "main/includes/data_field.html" label="Teléfono" value=user.profile.phone_number %}
+                            {% include "main/includes/data_field.html" with label="Cédula de Identidad" value=user.profile.identity_number %}
+                            {% include "main/includes/data_field.html" with label="Teléfono" value=user.profile.phone_number %}
                         </div>
                     {% else %}
                         <!-- Información específica de Empresa -->
-                        {% include "main/includes/data_field.html" label="RUT" value=user.profile.rut %}
+                        {% include "main/includes/data_field.html" with label="RUT" value=user.profile.rut %}
                     {% endif %}
                 </div>
             </div>
@@ -75,9 +75,9 @@
                 </div>
                 <div class="divider my-0"></div>
                 <div class="grid md:grid-cols-3 gap-4">
-                    {% include "main/includes/stat_box.html" label="Estado" value="Activo" %}
-                    {% include "main/includes/stat_box.html" label="Vencimiento" value="--" %}
-                    {% include "main/includes/stat_box.html" label="Beneficios" value="Disponibles" %}
+                    {% include "main/includes/stat_box.html" with label="Estado" value="Activo" %}
+                    {% include "main/includes/stat_box.html" with label="Vencimiento" value="--" %}
+                    {% include "main/includes/stat_box.html" with label="Beneficios" value="Disponibles" %}
                 </div>
             </div>
         </div>

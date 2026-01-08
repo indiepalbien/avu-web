@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -156,3 +157,57 @@ CKEDITOR_CONFIGS = {
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# ============================================================================
+# MERCADO PAGO CONFIGURATION
+# ============================================================================
+
+MERCADO_PAGO_ACCESS_TOKEN = os.getenv('MERCADO_PAGO_ACCESS_TOKEN', '')
+MERCADO_PAGO_WEBHOOK_SECRET = os.getenv('MERCADO_PAGO_WEBHOOK_SECRET', '')
+MERCADO_PAGO_SANDBOX = os.getenv('MERCADO_PAGO_SANDBOX', 'True') == 'True'
+
+MERCADO_PAGO_SUCCESS_URL = os.getenv('MERCADO_PAGO_SUCCESS_URL', 'http://localhost:8000/profile/')
+MERCADO_PAGO_FAILURE_URL = os.getenv('MERCADO_PAGO_FAILURE_URL', 'http://localhost:8000/signup/error/')
+MERCADO_PAGO_PENDING_URL = os.getenv('MERCADO_PAGO_PENDING_URL', 'http://localhost:8000/signup/pending/')
+MERCADO_PAGO_WEBHOOK_URL = os.getenv('MERCADO_PAGO_WEBHOOK_URL', 'http://localhost:8000/webhooks/mercado-pago/')
+
+# Planes de pago (UYU)
+PAYMENT_PLANS = {
+    'monthly': {
+        'name': 'Suscripción Mensual',
+        'amount': 500.00,
+        'frequency': 'monthly',
+    },
+    'yearly': {
+        'name': 'Suscripción Anual',
+        'amount': 5000.00,
+        'frequency': 'yearly',
+    },
+}
+
+# ============================================================================
+# CELERY CONFIGURATION
+# ============================================================================
+
+CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL', 'redis://localhost:6379/0')
+CELERY_RESULT_BACKEND = os.getenv('CELERY_RESULT_BACKEND', 'redis://localhost:6379/0')
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'UTC'
+
+try:
+    from celery.schedules import crontab
+    CELERY_BEAT_SCHEDULE = {
+        'sync-subscriptions-daily': {
+            'task': 'avuweb.main.tasks.sync_subscriptions_reconciliation',
+            'schedule': crontab(hour=2, minute=0),
+        },
+        'check-pending-payments': {
+            'task': 'avuweb.main.tasks.check_pending_payment_dates',
+            'schedule': crontab(hour=9, minute=0),
+        },
+    }
+except Exception:
+    # Celery might not be installed in some environments
+    CELERY_BEAT_SCHEDULE = {}
